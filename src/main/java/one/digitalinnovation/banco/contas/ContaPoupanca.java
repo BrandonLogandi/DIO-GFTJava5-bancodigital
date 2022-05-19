@@ -1,0 +1,17 @@
+package one.digitalinnovation.banco.contas;
+
+import one.digitalinnovation.banco.cliente.Cliente;
+
+public class ContaPoupanca extends Conta {
+
+	public ContaPoupanca(Cliente cliente, String senha) {
+		super(cliente, senha);
+	}
+
+	@Override
+	public void imprimirExtrato() {
+		System.out.println("=== Extrato Conta Poupanca ===");
+		super.imprimirExtrato();
+	}
+	
+}
