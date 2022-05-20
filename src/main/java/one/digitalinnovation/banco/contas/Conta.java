@@ -70,12 +70,13 @@ public abstract class Conta implements ContaInterface {
 
 	@Override
 	public String toString() {
-		return "CONTA {" +
-			" Agencia: '" + getAgencia() + "'" +
-			", Numero: '" + getNumero() + "'" +
-			", Titular: '" + getCliente().getIdentificador() + "'" +
-			", Saldo: '" + getSaldo() + "'" +
-			"}";
+		return String.format(
+			"CONTA { Agencia: '%d', Numero: '%d', Titular: '%s', Saldo: R$%.2f}", 
+			getAgencia(),
+			getNumero(),
+			getCliente().getIdentificador(),
+			getSaldo()
+		);
 	}
 
 	

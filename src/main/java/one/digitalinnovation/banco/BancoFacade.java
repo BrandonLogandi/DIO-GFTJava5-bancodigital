@@ -10,6 +10,20 @@ public class BancoFacade {
     private Banco banco = BancoSerializer.carregarBanco();
     private static Scanner scanner = new Scanner(System.in);
 
+    public BancoFacade() {
+        renderAllPoupanca();
+    }
+
+    private void renderAllPoupanca() {
+        for (Conta c : banco.getContas()) {
+            if (c instanceof ContaPoupanca) {
+                ContaPoupanca poupanca = (ContaPoupanca) c;
+                poupanca.render();
+            }
+        }
+        BancoSerializer.salvarBanco(banco);
+    }
+
     public void cadastrarCliente(Cliente c) throws Exception {
         if(banco.getClientes().contains(c))
             throw new Exception("Cliente com mesmo CPF/CNPJ já cadastrado");
@@ -38,9 +52,17 @@ public class BancoFacade {
             if(c.getCliente().equals(titular))
                 throw new Exception("Cliente já possui uma conta");
             
-        //TODO Ask account type
-        banco.getContas().add(new ContaCorrente(titular, senha));
-        // banco.getContas().add(new ContaPoupanca(titular));
+        System.out.print("Tipo de conta: [\"C\"orrente/\"P\"oupanca]: ");
+        switch (scanner.nextLine().toUpperCase()) {
+            case "C":
+                banco.getContas().add(new ContaCorrente(titular, senha));
+                break;
+            case "P":
+                banco.getContas().add(new ContaPoupanca(titular, senha));
+                break;
+            default:
+                throw new Exception("Tipo invalido");
+        }
 
         BancoSerializer.salvarBanco(banco);
 
