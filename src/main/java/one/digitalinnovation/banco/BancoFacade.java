@@ -55,10 +55,10 @@ public class BancoFacade {
         System.out.print("Tipo de conta: [\"C\"orrente/\"P\"oupanca]: ");
         switch (scanner.nextLine().toUpperCase()) {
             case "C":
-                banco.getContas().add(new ContaCorrente(titular, senha));
+                banco.getContas().add(new ContaCorrente(titular, senha, banco.AGENCIA_PADRAO, banco.incrementSequential()));
                 break;
             case "P":
-                banco.getContas().add(new ContaPoupanca(titular, senha));
+                banco.getContas().add(new ContaPoupanca(titular, senha, banco.AGENCIA_PADRAO, banco.incrementSequential()));
                 break;
             default:
                 throw new Exception("Tipo invalido");

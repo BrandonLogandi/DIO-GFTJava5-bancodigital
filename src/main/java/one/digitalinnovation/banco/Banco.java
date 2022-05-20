@@ -8,6 +8,9 @@ import one.digitalinnovation.banco.contas.Conta;
 
 class Banco {
 
+	public final int AGENCIA_PADRAO = 1;
+	private int sequential = 1;
+
 	private String nome;
 	private List<Cliente> clientes = new ArrayList<>();
 	private List<Conta> contas = new ArrayList<>();
@@ -15,6 +18,10 @@ class Banco {
 
 	Banco(String nome) {
 		this.nome = nome;
+	}
+
+	int incrementSequential() {
+		return sequential++;
 	}
 
 	String getNome() {

@@ -4,8 +4,8 @@ import one.digitalinnovation.banco.cliente.Cliente;
 
 public class ContaCorrente extends Conta {
 
-	public ContaCorrente(Cliente cliente, String senha) {
-		super(cliente, senha);
+	public ContaCorrente(Cliente cliente, String senha, int agencia, int numero) {
+		super(cliente, senha, agencia, numero);
 	}
 
     @Override

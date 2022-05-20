@@ -11,9 +11,6 @@ import one.digitalinnovation.banco.cliente.Cliente;
 
 public abstract class Conta implements ContaInterface {
 
-    private static final int AGENCIA_PADRAO = 1;
-	private static int SEQUENCIAL = 1;
-
 	protected @Getter int agencia;
 	protected @Getter int numero;
 	protected @Getter double saldo;
@@ -21,9 +18,9 @@ public abstract class Conta implements ContaInterface {
 	protected @Getter String senha;
 	protected @Getter @Setter List<Transacao> transacoes = new ArrayList<>();
 
-	public Conta(Cliente cliente, String senha) {
-		this.agencia = Conta.AGENCIA_PADRAO;
-		this.numero = SEQUENCIAL++;
+	public Conta(Cliente cliente, String senha, int agencia, int numero) {
+		this.agencia = agencia;
+		this.numero = numero;
 		this.cliente = cliente;
 		this.senha = senha;
 	}
@@ -31,7 +28,7 @@ public abstract class Conta implements ContaInterface {
 	@Override
 	public void sacar(double valor) throws Exception {
 		if ((saldo - valor) < 0) 
-			throw new Exception(String.format("Saldo insuficiente (%.2f)", saldo));
+			throw new Exception(String.format("Saldo insuficiente (R$%.2f)", saldo));
 
 		saldo -= valor;
 	}

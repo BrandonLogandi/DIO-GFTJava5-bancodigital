@@ -10,8 +10,8 @@ public class ContaPoupanca extends Conta {
 	private final double RENDIMENTO_RATE = 0.00028d;
 	private LocalDate lastRendimentoDate;
 
-	public ContaPoupanca(Cliente cliente, String senha) {
-		super(cliente, senha);
+	public ContaPoupanca(Cliente cliente, String senha, int agencia, int numero) {
+		super(cliente, senha, agencia, numero);
 		lastRendimentoDate = LocalDate.now();
 	}
 
