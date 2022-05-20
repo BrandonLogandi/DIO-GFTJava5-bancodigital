@@ -49,7 +49,9 @@ public abstract class Conta implements ContaInterface {
 
 	@Override
     public void imprimirExtrato() {
-        //TODO imprimirExtrato
+        for (Transacao transacao : transacoes) {
+			System.out.println(transacao.toString());
+		}
     }
 
 	@Override

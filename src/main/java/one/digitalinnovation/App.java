@@ -60,14 +60,10 @@ public final class App {
                     userInput();
                     break;
                 case 11:
-                    listarTransacoes();
-                    userInput();
-                    break;
-                case 12:
                     bancoFacade.listarAllTransacoes();
                     userInput();
                     break;
-                case 13:
+                case 12:
                     System.exit(0);
                 default:
                     throw new Exception("Opcao invalida");
@@ -146,10 +142,6 @@ public final class App {
 
     private static void imprimirExtrato() throws Exception {
         bancoFacade.imprimirExtrato(encontrarConta());
-    }
-
-    private static void listarTransacoes() throws Exception {
-        bancoFacade.listarTransacoes(encontrarConta());
     }
         
 }
