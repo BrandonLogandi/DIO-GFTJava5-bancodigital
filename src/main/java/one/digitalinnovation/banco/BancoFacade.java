@@ -7,7 +7,8 @@ import one.digitalinnovation.banco.contas.*;
 
 public class BancoFacade {
 
-    private Banco banco = BancoSerializer.carregarBanco();
+    private BancoSerializer serializer = new BancoSerializer();
+    private Banco banco = serializer.carregarBanco();
     private static Scanner scanner = new Scanner(System.in);
 
     public BancoFacade() {
@@ -18,10 +19,10 @@ public class BancoFacade {
         for (Conta c : banco.getContas()) {
             if (c instanceof ContaPoupanca) {
                 ContaPoupanca poupanca = (ContaPoupanca) c;
-                poupanca.render();
+                poupanca.render(banco.RENDIMENTO_RATE);
             }
         }
-        BancoSerializer.salvarBanco(banco);
+        serializer.salvarBanco(banco);
     }
 
     public void cadastrarCliente(Cliente c) throws Exception {
@@ -29,8 +30,8 @@ public class BancoFacade {
             throw new Exception("Cliente com mesmo CPF/CNPJ já cadastrado");
             
         banco.getClientes().add(c);
+        serializer.salvarBanco(banco);
 
-        BancoSerializer.salvarBanco(banco);
         System.out.println("Cliente cadastrado com sucesso");
     }
 
@@ -64,8 +65,7 @@ public class BancoFacade {
                 throw new Exception("Tipo invalido");
         }
 
-        BancoSerializer.salvarBanco(banco);
-
+        serializer.salvarBanco(banco);
         System.out.println("Conta criada com sucesso");
     }
 
@@ -84,7 +84,6 @@ public class BancoFacade {
                 return c;
             }
                 
-            
         throw new Exception(String.format("Conta com titular %s não encontrada", indentificadorCliente));
     }
 
@@ -103,7 +102,7 @@ public class BancoFacade {
         conta.getTransacoes().add(t);
         banco.getTransacoes().add(t);
 
-        BancoSerializer.salvarBanco(banco);
+        serializer.salvarBanco(banco);
         System.out.printf("R$%.2f sacados com sucesso\n", valor);
     }
 
@@ -114,7 +113,7 @@ public class BancoFacade {
         conta.getTransacoes().add(t);
         banco.getTransacoes().add(t);
 
-        BancoSerializer.salvarBanco(banco);
+        serializer.salvarBanco(banco);
         System.out.printf("R$%.2f depositados com sucesso\n", valor);
     }
 
@@ -129,7 +128,7 @@ public class BancoFacade {
         destinatario.getTransacoes().add(t);
         banco.getTransacoes().add(t);
 
-        BancoSerializer.salvarBanco(banco);
+        serializer.salvarBanco(banco);
         System.out.printf("R$%.2f transferido para titular %s com sucesso\n", valor, destinatario.getCliente().getIdentificador());
     }
 
@@ -144,7 +143,6 @@ public class BancoFacade {
             throw new Exception("Senha invalida");
         for (Transacao t : conta.getTransacoes()) 
             System.out.println(t);
-        
     }
 
     public void listarAllTransacoes() {

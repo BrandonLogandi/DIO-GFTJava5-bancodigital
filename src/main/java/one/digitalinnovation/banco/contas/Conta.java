@@ -5,27 +5,26 @@ import java.util.List;
 import java.util.Objects;
 
 import lombok.Getter;
-import lombok.Setter;
 import one.digitalinnovation.banco.Transacao;
 import one.digitalinnovation.banco.cliente.Cliente;
 
-public abstract class Conta implements ContaInterface {
+@Getter
+public abstract class Conta {
 
-	protected @Getter int agencia;
-	protected @Getter int numero;
-	protected @Getter double saldo;
-	protected @Getter Cliente cliente;
-	protected @Getter String senha;
-	protected @Getter @Setter List<Transacao> transacoes = new ArrayList<>();
+	protected int agencia;
+	protected int numero;
+	protected double saldo;
+	protected Cliente cliente;
+	protected String senha;
+	protected List<Transacao> transacoes = new ArrayList<>();
 
-	public Conta(Cliente cliente, String senha, int agencia, int numero) {
+	protected Conta(Cliente cliente, String senha, int agencia, int numero) {
 		this.agencia = agencia;
 		this.numero = numero;
 		this.cliente = cliente;
 		this.senha = senha;
 	}
 
-	@Override
 	public void sacar(double valor) throws Exception {
 		if ((saldo - valor) < 0) 
 			throw new Exception(String.format("Saldo insuficiente (R$%.2f)", saldo));
@@ -33,18 +32,15 @@ public abstract class Conta implements ContaInterface {
 		saldo -= valor;
 	}
 
-	@Override
 	public void depositar(double valor) {
 		saldo += valor;
 	}
 
-	@Override
-	public void transferir(double valor, ContaInterface destinatario) throws Exception {
+	public void transferir(double valor, Conta destinatario) throws Exception {
 		this.sacar(valor);
 		destinatario.depositar(valor);
 	}
 
-	@Override
     public void imprimirExtrato() {
         for (Transacao transacao : transacoes) {
 			System.out.println(transacao.toString());

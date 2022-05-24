@@ -3,13 +3,19 @@ package one.digitalinnovation.banco;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import one.digitalinnovation.banco.cliente.Cliente;
 import one.digitalinnovation.banco.contas.Conta;
 
+@Getter(AccessLevel.PACKAGE) @Setter(AccessLevel.PACKAGE)
 class Banco {
 
-	public final int AGENCIA_PADRAO = 1;
-	private int sequential = 1;
+	public @Getter(AccessLevel.NONE) final int AGENCIA_PADRAO = 1;
+	public @Getter(AccessLevel.NONE) final double RENDIMENTO_RATE = 0.00028d;
+	
+	private @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE) int sequential = 1;
 
 	private String nome;
 	private List<Cliente> clientes = new ArrayList<>();
@@ -22,38 +28,6 @@ class Banco {
 
 	int incrementSequential() {
 		return sequential++;
-	}
-
-	String getNome() {
-		return this.nome;
-	}
-
-	void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	List<Cliente> getClientes() {
-		return this.clientes;
-	}
-
-	void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
-
-	List<Conta> getContas() {
-		return this.contas;
-	}
-
-	void setContas(List<Conta> contas) {
-		this.contas = contas;
-	}
-
-	List<Transacao> getTransacoes() {
-		return this.transacoes;
-	}
-
-	void setTransacoes(List<Transacao> transacoes) {
-		this.transacoes = transacoes;
 	}
 
 }

@@ -7,7 +7,6 @@ import one.digitalinnovation.banco.cliente.Cliente;
 
 public class ContaPoupanca extends Conta {
 
-	private final double RENDIMENTO_RATE = 0.00028d;
 	private LocalDate lastRendimentoDate;
 
 	public ContaPoupanca(Cliente cliente, String senha, int agencia, int numero) {
@@ -15,14 +14,14 @@ public class ContaPoupanca extends Conta {
 		lastRendimentoDate = LocalDate.now();
 	}
 
-	public void render() {
+	public void render(double rendimentoRate) {
 		long days = ChronoUnit.DAYS.between(lastRendimentoDate, LocalDate.now());
 
 		if (days > 0) {
 			double totalRendimento = 0;
 
 			for (int i = 0; i < days; i++) {
-				double renda = super.getSaldo() * RENDIMENTO_RATE;
+				double renda = super.getSaldo() * rendimentoRate;
 				totalRendimento += renda;
 				super.depositar(renda);
 			}

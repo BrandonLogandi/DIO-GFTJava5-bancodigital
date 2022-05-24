@@ -2,15 +2,15 @@ package one.digitalinnovation.banco.cliente;
 
 import java.util.Objects;
 
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
 import lombok.Setter;
 
 @Data
 public class Cliente {
 
-    private @Getter @Setter String nome;
-    private @Getter String identificador;
+    private String nome;
+    private @Setter(AccessLevel.NONE) String identificador;
 
     public Cliente(String nome, String identificador){
         this.nome  = nome;

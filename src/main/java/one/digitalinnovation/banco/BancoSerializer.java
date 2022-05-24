@@ -6,16 +6,25 @@ import java.io.FileWriter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
-public abstract class BancoSerializer {
+import one.digitalinnovation.banco.cliente.Cliente;
+import one.digitalinnovation.banco.contas.ContaCorrente;
+import one.digitalinnovation.banco.contas.ContaPoupanca;
 
-    private static XStream xstream = new XStream();
+class BancoSerializer {
 
-    private static void permissions() {
+    private XStream xstream = new XStream();
+
+    BancoSerializer() {
         xstream.addPermission(AnyTypePermission.ANY);
+
+        xstream.alias("banco", Banco.class);
+        xstream.alias("cliente", Cliente.class);
+        xstream.alias("conta-corrente", ContaCorrente.class);
+        xstream.alias("conta-poupanca", ContaPoupanca.class);
+        xstream.alias("transacao", Transacao.class);
     }
 
-    public static void salvarBanco(Banco banco) {
-        permissions();
+    void salvarBanco(Banco banco) {
         try{
             String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
             xml += xstream.toXML(banco);
@@ -28,14 +37,12 @@ public abstract class BancoSerializer {
 		}
     }
 
-    public static Banco carregarBanco() {
-        permissions();
+    Banco carregarBanco() {
         try {
-			File f = new File("banco.xml");
-            if(!f.exists()) {
+			File file = new File("banco.xml");
+            if(!file.exists()) 
                 return new Banco("Banco DIO");
-            }
-			return (Banco) xstream.fromXML(f);
+			return (Banco) xstream.fromXML(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

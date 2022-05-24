@@ -8,12 +8,13 @@ import one.digitalinnovation.banco.contas.Conta;
 import java.time.Instant;
 import java.util.Date;
 
+@Getter
 public class Transacao {
 
-    private @Getter double valor;
-    private @Getter Conta remetente;
-    private @Getter Conta destinatario;
-    private @Getter Date data;
+    private double valor;
+    private Conta remetente;
+    private Conta destinatario;
+    private Date data;
 
     public Transacao(double valor, Conta remetente) {
         this.valor = valor;
@@ -22,10 +23,8 @@ public class Transacao {
     }
 
     public Transacao(double valor, Conta remetente, Conta destinatario) {
-        this.valor = valor;
-        this.remetente = remetente;
+        this(valor, remetente);
         this.destinatario = destinatario;
-        this.data = Date.from(Instant.now());
     }
 
     @Override
